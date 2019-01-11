@@ -1,12 +1,34 @@
 // Selection Sort: Iterate over array, and for each
-// element, swap with smallest element found within 
-// elements with higher indices than current element
+// element X, look for the smallest value of all
+// elements in front X. Swap X with this value.
+// Elements preceding X are the already sorted
+// portion of the array.
 
 // Time Complexity: 
 //  O(n^2) because of nested loops
 // Space Complexity: 
 //  O(1) because operation done in place 
 
+// -----> UNCOMMENTED CODE
+function selectionSort(array){
+  for(let i=0; i < array.length - 1; i++){
+
+    let min_idx = i;
+
+    for (let j = i+1; j < array.length; j++) {
+      if(array[j] < array[min_idx])
+        min_idx = j
+
+    }
+    let temp = array[min_idx]; 
+    array[min_idx] = array[i]; 
+    array[i] = temp; 
+  }
+
+}
+
+/*
+// -----> COMMENTED CODE
 function selectionSort(array){
 
   // Iterate over array until just before last element
@@ -30,10 +52,10 @@ function selectionSort(array){
     let temp = array[min_idx]; 
 
     // Comment in to see array before swap
-    // console.log(i, array)
+    console.log(i, array)
 
-    // Comment in to see swapm values
-    // console.log("SWAP ", array[i], "<->", temp)
+    // Comment in to see swapped values
+    console.log("SWAP ", array[i], "<->", temp)
 
 
     // Swap values at `i` and at `min_idx`, putting
@@ -46,3 +68,4 @@ function selectionSort(array){
   }
 
 }
+*/

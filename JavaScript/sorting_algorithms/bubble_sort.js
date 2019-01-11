@@ -1,6 +1,7 @@
-// Bubble Sort: Compare 2 adjacent elements. If they
-// are in the wrong order, swap. Continue doing so
-// until largest elements are sorted at end of array
+// Bubble Sort: Compare value X to adjacent element. 
+// If they are in the wrong order, swap. Continue 
+// doing so until X is compared to an element 
+// greater than it.
 
 // Time Complexity: 
 //  O(n^2) because of nested loops
@@ -9,6 +10,41 @@
 // Space Complexity:
 //  O(1) because operation done in place
 
+// -----> UNCOMMENTED CODE
+function iterativeBubbleSort(array){
+  for(let i=0; i < array.length - 1; i++){
+    for(let j=0; j < array.length-i-1; j++){
+      if (array[j] > array[j+1]){
+        const temp = array[j+1]
+        array[j+1] = array[j]
+        array[j] = temp
+      }
+
+    }
+  }
+}
+
+// Recursive Bubble Sort
+function recursiveBubbleSort(array){
+  recursiveBubbleSortUtil(array, array.length)
+}
+
+function recursiveBubbleSortUtil(array, n){
+  if (n === 1) 
+    return;
+
+  for(let i=0; i < n-1; i++){
+    if (array[i] > array[i+1]){
+      const temp = array[i+1]
+      array[i+1] = array[i]
+      array[i] = temp
+    }
+  }
+  recursiveBubbleSortUtil(array, n-1)
+}
+
+/*
+// -----> COMMENTED CODE
 function iterativeBubbleSort(array){
 
 
@@ -20,6 +56,9 @@ function iterativeBubbleSort(array){
     // so it becomes unnecessary to sort the end.
     // In other words, the end of the array contains
     // the sorted portion of the array
+
+    // Comment in see array before each bubbling
+    // console.log(i, array)
     for(let j=0; j < array.length-i-1; j++){
       // Comment in to see array as it changes
       // console.log(j, array)
@@ -80,6 +119,8 @@ function recursiveBubbleSortUtil(array, n){
   }
 
   // Recurse using smaller n value because only
-  // values 0 -> n-1 are unsorted at each call
+  // values 0 -> n-1 remain unsorted
   recursiveBubbleSortUtil(array, n-1)
 }
+
+*/

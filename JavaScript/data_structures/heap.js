@@ -1,4 +1,7 @@
-// Base class. Define a new heap class type, extend Heap, and add `shouldSwap` which should return a boolean
+// Base class. Define a new heap class type, 
+// extend Heap, and add `shouldSwap` which should
+// take 2 values (child and parent) and return a 
+// boolean.
 
 class Heap {
 

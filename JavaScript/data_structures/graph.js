@@ -26,13 +26,16 @@ class Graph {
     } 
 
     addEdge(origin, destination) {
-        // Add edge from origin to destination
-        this.addEdgeUtil(origin, destination)
+        // Check if origin and destination are in graph
+        if (this.adjList[origin] && this.adjList[destination]) {
+            // Add edge from origin to destination
+            this.addEdgeUtil(origin, destination)
 
-        // If the graph is undirected, draw edge
-        // in reverse
-        if (this.undirected)
-            this.addEdgeUtil(destination, origin)
+            // If the graph is undirected, draw edge
+            // in reverse
+            if (this.undirected)
+                this.addEdgeUtil(destination, origin)
+        }
     }
 
     addEdgeUtil(origin, destination){
@@ -125,9 +128,8 @@ class Graph {
         // Check if vertex is in graph
         if (this.adjList[vertex]){
             // Initialize storage for visited
-            // vertices. Initial vertex is marked
-            // visited immediately
-            const visited = {[vertex]: true}
+            // vertices
+            const visited = {}
 
             // Begin recursion
             this.dfsUtil(vertex, visited, null)
@@ -135,22 +137,21 @@ class Graph {
     }
 
     dfsUtil(vertex, visited, previous){
+        // Mark vertex as visited
+        visited[vertex] = true
+
         // Comment in to see traversal order
         // console.log(previous, " -> ", vertex)
 
         // Get neighbors of current vertex
         const neighbors = this.adjList[vertex]
 
+
         // Iterate over neighbors
         neighbors.forEach(neighbor => {
-
             // Check if neighbor has already been 
             // visited
             if(!visited[neighbor]) {
-
-                // Mark neighbor as visited
-                visited[neighbor] = true
-
                 // Recursively visit this neighbor
                 this.dfsUtil(neighbor, visited, vertex)
             }

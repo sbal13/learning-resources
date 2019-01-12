@@ -43,9 +43,18 @@ class Heap {
 
     // Return removed value (old top of heap)
     return headNode;
-};
+  };
 
+  // Time Complexity:
+  //  O(K) where K is depth of heap. Because heap
+  //  is always complete, K === log(n) with n being
+  //  the number of values in the heap. Therefore
+  //  bubbleDown is O(log(n)). All operations
+  //  inside are O(1)
+  // Space Complexity:
+  //  O(1) since swaps are performed in place
   bubbleUp(childIndex, childData) {
+
     // If index is 0, you are at the top 
     // and can bubble no further
     if(childIndex > 0) {
@@ -68,8 +77,18 @@ class Heap {
         }
     }
   };
- 
+
+
+  // Time Complexity:
+  //  O(K) where K is depth of heap. Because heap
+  //  is always complete, K === log(n) with n being
+  //  the number of values in the heap. Therefore
+  //  bubbleDown is O(log(n)). All operations
+  //  inside are O(1)
+  // Space Complexity:
+  //  O(1) since swaps are performed in place
   bubbleDown(parentIndex, parentData) {
+
     // If index is greater than or equal to length
     // of data, you are at the end of the array 
     // and can bubble down no further

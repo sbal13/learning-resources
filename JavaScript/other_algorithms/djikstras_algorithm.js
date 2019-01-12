@@ -1,0 +1,2 @@
+function djikstra(graph, origin){
+}

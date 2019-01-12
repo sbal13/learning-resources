@@ -1,49 +1,62 @@
-class Graph {
+class WeightedGraph {
 
 	// Can be directed or undirected. If directed,
 	// edges are constructed only from origin
 	// to destination. If undirected, edges are
 	// constructed from origin to destination AND 
 	// back.
-	constructor(undirected = false) { 
+	constructor(undirected = true) { 
 		// Storage for graph values
-		this.adjList = {}
+		this.adjList = new Map()
 
 		// Configuring Graph to be directed or 
 		// undirected
 		this.undirected = undirected
 	} 
 	
-	addVertex(vertex) { 
-		// Checking if value is already in graph
-		// If it isn't, use vertex as key in storage
-		// and initialize its value as empty array.
-		// This array will be used to store
-		// all other vertices that this vertex
-		// is connected to.
-		if (!this.adjList[vertex])
-			this.adjList[vertex] = [] 
+	addVertex(vertex) {
+		if (vertex){
+			// If not supplied with a Node, will assume that
+			// `vertex` is a value and construct a Node using
+			// this value
+			if (vertex.constructor !== Node){
+				vertex = new Node(vertex)
+			}
+
+			// Checking if value is already in graph
+			// If it isn't, use vertex as key in storage
+			// and initialize its value as empty array.
+			// This array will be used to store
+			// all other vertices that this vertex
+			// is connected to.
+			if (!this.adjList.get(vertex))
+				this.adjList.set(vertex, new Map())
+		}
+		
+		 
 	} 
 
-	addEdge(origin, destination) {
+	addEdge(origin, destination, weight) {
 		// Check if origin and destination are in graph
-		if (this.adjList[origin] && this.adjList[destination]) {
+		if (this.adjList.get(origin) && this.adjList.get(destination)) {
 			// Add edge from origin to destination
-			this.addEdgeUtil(origin, destination)
+			this.addEdgeUtil(origin, destination, weight)
 
 			// If the graph is undirected, draw edge
 			// in reverse
 			if (this.undirected)
-				this.addEdgeUtil(destination, origin)
+				this.addEdgeUtil(destination, origin, weight)
 		}
 	}
 
-	addEdgeUtil(origin, destination){
+	addEdgeUtil(origin, destination, weight){
 		// If there isn't already an edge connecting
 		// origin to destination, add destination
 		// to array stored at key `origin`
-		if (!this.adjList[origin].includes(destination))
-			this.adjList[origin].push(destination)
+		let edges = this.adjList.get(origin)
+
+		if (!edges.get(destination))
+			edges.set(destination, weight)
 	}
 
 	// Breadth First Search: Starting at any vertex, 
@@ -63,10 +76,10 @@ class Graph {
 
 	bfs(vertex){
 		// Check if vertex is in graph
-		if (this.adjList[vertex]){
+		if (this.adjList.get(vertex)){
 			// Initialize storage for vertices already
 			// visited
-			const visited = {}
+			const visited = new Map()
 
 			// Initialize queue with target vertex
 			// as queue item
@@ -81,13 +94,13 @@ class Graph {
 
 				// If vertex has already been visited,
 				// do not go again
-				if (!visited[currentVertex]) {
+				if (!visited.get(currentVertex)) {
 					// Comment in to see traversal
 					// order
 					// console.log(currentVertex)
 
 					// Get all neighbors of vertex
-					const neighbors = this.adjList[currentVertex]
+					const neighbors = this.adjList.get(currentVertex).keys()
 
 					// Add all neighbors of newly
 					// visited vertices to end of queue
@@ -96,7 +109,7 @@ class Graph {
 
 				// Mark this vertex as having been 
 				// visited
-				visited[currentVertex] = true
+				visited.set(currentVertex, true)
 			}
 		}
 	}
@@ -126,10 +139,10 @@ class Graph {
 
 	dfs(vertex){
 		// Check if vertex is in graph
-		if (this.adjList[vertex]){
+		if (this.adjList.get(vertex)){
 			// Initialize storage for visited
 			// vertices
-			const visited = {}
+			const visited = new Map()
 
 			// Begin recursion
 			this.dfsUtil(vertex, visited, null)
@@ -138,20 +151,20 @@ class Graph {
 
 	dfsUtil(vertex, visited, previous){
 		// Mark vertex as visited
-		visited[vertex] = true
+		visited.set(vertex, true)
 
 		// Comment in to see traversal order
-		// console.log(previous, " -> ", vertex)
+		console.log(previous, " -> ", vertex)
 
 		// Get neighbors of current vertex
-		const neighbors = this.adjList[vertex]
-
+		const neighbors = [...this.adjList.get(vertex).keys()]
+		
 
 		// Iterate over neighbors
 		neighbors.forEach(neighbor => {
 			// Check if neighbor has already been 
 			// visited
-			if(!visited[neighbor]) {
+			if(!visited.get(neighbor)) {
 				// Recursively visit this neighbor
 				this.dfsUtil(neighbor, visited, vertex)
 			}

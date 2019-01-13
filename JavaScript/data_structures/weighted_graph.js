@@ -154,7 +154,7 @@ class WeightedGraph {
 		visited.set(vertex, true)
 
 		// Comment in to see traversal order
-		console.log(previous, " -> ", vertex)
+		// console.log(previous, " -> ", vertex)
 
 		// Get neighbors of current vertex
 		const neighbors = [...this.adjList.get(vertex).keys()]
@@ -171,5 +171,106 @@ class WeightedGraph {
 		})
 
 		
+	}
+
+	allShortestPaths(){
+		const nodes = [...this.adjList.keys()]
+
+		nodes.forEach(node => {
+			let data = [...this.djikstra(node).entries()]
+			console.log("*****************")
+			data.forEach(datum => {
+				console.log(
+					`${node.value} DISTANCE TO ` 
+					+ (datum[0].value) 
+					+ ": " 
+					+ datum[1].weightSum
+				)
+			})
+		})
+	}
+
+	shortestPath(origin, destination){
+		let paths = this.djikstra(origin)
+		console.log(
+			`Shortest path from ${origin.value} to ${destination.value}:`,
+			paths.get(destination).weightSum
+		)
+	}
+
+
+	djikstra(origin){
+		const visited = new Map()
+
+
+		const { data, nodes } = this.createDjikstraDataStore(origin)
+
+		let target = origin
+		data.get(origin).closest = origin
+
+		let i = 0
+
+		while (i < nodes.length){
+			visited.set(target, true)
+			let neighbors = [...this.adjList.get(target).entries()]
+
+			let minimum = Infinity
+			let tempTarget = null
+
+			// console.log("** BEGIN **")
+			// console.log("TARGET: ", target)
+			neighbors.forEach(neighbor => {
+				let node = neighbor[0]
+				let weight = neighbor[1]
+
+				// console.log(node, weight)
+
+
+				let targetNodeData = data.get(target)
+				let currentNodeData = data.get(node)
+
+
+				if (targetNodeData.weightSum + weight < currentNodeData.weightSum){
+					currentNodeData.weightSum = targetNodeData.weightSum + weight
+					currentNodeData.closest = target
+				}
+
+				if (currentNodeData.weightSum < minimum && !visited.get(node)) {
+						minimum = currentNodeData.weightSum
+						tempTarget = node
+				}
+			})
+
+			// console.log("LOWEST WEIGHT", minimum)
+
+			if (!tempTarget)
+				break;
+
+			target = tempTarget
+			i++
+
+			// console.log("*** END ***")
+		}
+
+		return data
+
+	}
+
+	createDjikstraDataStore(origin){
+
+		const nodes = [...this.adjList.keys()]
+		const data = new Map()
+
+		nodes.forEach(node => {
+			let datum = {
+				weightSum: node === origin ? 0 : Infinity,
+				closest: null,
+			}
+
+			data.set(node, datum)
+		}) 
+
+		return { data, nodes }
+
 	}
 } 

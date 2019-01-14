@@ -1,74 +1,74 @@
 function djikstra(graph, origin){
-	const visited = new Map()
+  const visited = new Map()
 
 
-	const { data, nodes } = createDjikstraDataStore(graph.adjList, origin)
+  const { data, nodes } = createDjikstraDataStore(graph.adjList, origin)
 
-	let target = origin
-	data.get(origin).closest = origin
+  let target = origin
+  data.get(origin).closest = origin
 
-	let i = 0
+  let i = 0
 
-	while (i < nodes.length){
-		visited.set(target, true)
-		let neighbors = [...graph.adjList.get(target).entries()]
+  while (i < nodes.length){
+    visited.set(target, true)
+    let neighbors = [...graph.adjList.get(target).entries()]
 
-		let minimum = Infinity
-		let tempTarget = null
+    let minimum = Infinity
+    let tempTarget = null
 
-		// console.log("** BEGIN **")
-		// console.log("TARGET: ", target)
-		neighbors.forEach(neighbor => {
-			let node = neighbor[0]
-			let weight = neighbor[1]
+    // console.log("** BEGIN **")
+    // console.log("TARGET: ", target)
+    neighbors.forEach(neighbor => {
+      let node = neighbor[0]
+      let weight = neighbor[1]
 
-			// console.log(node, weight)
-
-
-			let targetNodeData = data.get(target)
-			let currentNodeData = data.get(node)
+      // console.log(node, weight)
 
 
-			if (targetNodeData.weightSum + weight < currentNodeData.weightSum){
-				currentNodeData.weightSum = targetNodeData.weightSum + weight
-				currentNodeData.closest = target
-			}
+      let targetNodeData = data.get(target)
+      let currentNodeData = data.get(node)
 
-			if (currentNodeData.weightSum < minimum && !visited.get(node)) {
-					minimum = currentNodeData.weightSum
-					tempTarget = node
-			}
-		})
 
-		// console.log("LOWEST WEIGHT", minimum)
+      if (targetNodeData.weightSum + weight < currentNodeData.weightSum){
+        currentNodeData.weightSum = targetNodeData.weightSum + weight
+        currentNodeData.closest = target
+      }
 
-		if (!tempTarget)
-			break;
+      if (currentNodeData.weightSum < minimum && !visited.get(node)) {
+          minimum = currentNodeData.weightSum
+          tempTarget = node
+      }
+    })
 
-		target = tempTarget
-		i++
+    // console.log("LOWEST WEIGHT", minimum)
 
-		// console.log("*** END ***")
-	}
+    if (!tempTarget)
+      break;
 
-	return data
+    target = tempTarget
+    i++
+
+    // console.log("*** END ***")
+  }
+
+  return data
 
 }
 
 function createDjikstraDataStore(adjList, origin){
 
-	const nodes = [...adjList.keys()]
-	const data = new Map()
+  const nodes = [...adjList.keys()]
+  const data = new Map()
 
-	nodes.forEach(node => {
-		let datum = {
-			weightSum: node === origin ? 0 : Infinity,
-			closest: null,
-		}
+  nodes.forEach(node => {
+    let datum = {
+      weightSum: node === origin ? 0 : Infinity,
+      closest: null,
+    }
 
-		data.set(node, datum)
-	}) 
+    data.set(node, datum)
+  }) 
 
-	return { data, nodes }
+  return { data, nodes }
 
 }

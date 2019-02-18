@@ -13,12 +13,17 @@ These notes are a compilation of useful web technologies/services and any termin
 
 ### Kubernetes
 
+### MapReduce
+
+
 ### Terminology
 
 *SaaS*
 *PaaS*
 *IaaS*
 *Load Balancing*
+*Sharding*
 *Containerized*
+
 
 

@@ -25,6 +25,10 @@ This distinction is entirely separate of relational vs non-relational (i.e. a re
 
 Analytical databases are typically used to house tons of data where transactions are infrequent and are sometimes called data warehouses. These databases are characterized by complex queries that touch large swaths of data. Think of doing analysis on the past year's weather data or users' Google searches.
 
+Operational DBs: MySQL, MongoDB, Neo4j, Cassandra
+
+Analytical DBs: MapReduce, SQL Server, Oracle, Amazon Redshift
+
 
 https://www.jamesserra.com/archive/2015/08/relational-databases-vs-non-relational-databases/
 
@@ -43,6 +47,8 @@ Third Normal Form – the table is in second normal form and all of its columns 
 "
 
 https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-explained-in-simple-english/
+
+https://www.geeksforgeeks.org/database-normalization-normal-forms/
 
 
 ### Indexing

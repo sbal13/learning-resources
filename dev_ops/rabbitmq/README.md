@@ -3,7 +3,7 @@
 ## Notes
 
 Install: `brew install rabbitmq`
-Run: `rabbitmq-server`
+Run: `rabbitmq-server` (defaults to port 5672)
 
 ## Links
 

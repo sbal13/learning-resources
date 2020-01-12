@@ -1,10 +1,10 @@
-## Databases
+# Databases
 
 Here are some general notes on databases.
 
-### Types
+## Types
 
-#### Relational
+### Relational
 
 Old standard of database management based on tables organized into columns (representing attributes) and rows (representing a record). Foreign keys are used to relate rows of one table to another (using the one-to-many concept).
 
@@ -13,13 +13,13 @@ Scaling on a single server is very easy, but scaling to a large distributed syst
 Examples: SQLite, PostgreSQL, MySQL, Oracle DB
 
 
-#### Non-Relational
+### Non-Relational
 
 Non-tabular method for storing data (e.g. MongoDB uses a form of JSON, Neo4J uses a graph). Generally much simpler than relational databases because related data can simply be stored in a single document instead of requiring that several tables be joined together. Non-relational databases generally have good horizontal scaling across distributed systems, with built in load-balancing and auto-sharding.
 
 Examples: MongoDB, Cassandra, Redis, Neo4J
 
-#### Operational vs Analytical
+### Operational vs Analytical
 
 This distinction is entirely separate of relational vs non-relational (i.e. a relational DB can be operational or analytical; same is true for non-relational DBs). Operational databses are characterized by frequent, short transactions (CUD actions). Because of this, concurrency and integrity of transactions is very important and so support ACID transactions (atomicity, consistency, isolation, durability). Operational databases are what one would expect to see for a web application like Facebook or Twitter, or banking applications
 
@@ -32,7 +32,7 @@ Analytical DBs: MapReduce, SQL Server, Oracle, Amazon Redshift
 
 https://www.jamesserra.com/archive/2015/08/relational-databases-vs-non-relational-databases/
 
-### Normalization
+## Normalization
 
 "Database normalization is the process of structuring a relational database in accordance with a series of so-called normal forms in order to reduce data redundancy and improve data integrity. It was first proposed by Edgar F. Codd as an integral part of his relational model." - Wikipedia
 
@@ -51,7 +51,7 @@ https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-expla
 https://www.geeksforgeeks.org/database-normalization-normal-forms/
 
 
-### Indexing
+## Indexing
 
 "A database index is a data structure that improves the speed of data retrieval operations on a database table at the cost of additional writes and storage space to maintain the index data structure. Indexes are used to quickly locate data without having to search every row in a database table every time a database table is accessed. Indexes can be created using one or more columns of a database table, providing the basis for both rapid random lookups and efficient access of ordered records." - Wikipedia
 
@@ -146,13 +146,10 @@ search_value | data_reference
 A different form of an index exists as a hash map, where the search values are run through a hashing function - the resultant hash is used to determine which bucket to put the value and its pointer. This means that there is an O(1) read time, assuming low collisions on the hash map.
 
 
+## Links
 
+[DB Indexing](https://stackoverflow.com/questions/1108/how-does-database-indexing-work)
+[Geeks for Geeks DB Indexing](https://www.geeksforgeeks.org/indexing-in-databases-set-1/)
+[Concatenated Keys](https://use-the-index-luke.com/sql/where-clause/the-equals-operator/concatenated-keys)
+[Composite Indexing](https://medium.com/@User3141592/single-vs-composite-indexes-in-relational-databases-58d0eb045cbe)
 
-
-https://stackoverflow.com/questions/1108/how-does-database-indexing-work
-
-https://use-the-index-luke.com/sql/where-clause/the-equals-operator/concatenated-keys
-
-https://medium.com/@User3141592/single-vs-composite-indexes-in-relational-databases-58d0eb045cbe
-
-https://www.geeksforgeeks.org/indexing-in-databases-set-1/
